@@ -28,19 +28,19 @@ def first_existing(*candidates: Path) -> str:
 
 
 #----------------------------------------------
-# 背景画像＋雲を表示する
+# 背景画像 + 雲を表示する
 #----------------------------------------------
 class BackgroundWithClouds(Widget):
     
-    def __init__(self,**kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
-        #背景画像と雲画像のパスを探す
+
+        # 背景画像と雲画像のパスを探す
         # bg.png か bg.jpg のどちらでも対応できるようにする
         bg_path = first_existing(IMG_DIR / 'bg.png', IMG_DIR / 'bg.jpg')
-        cloud_path=first_existing(IMG_DIR/'cloud.png')
+        cloud_path = first_existing(IMG_DIR / 'cloud.png')
         
-        #まずは背景を一番下に敷く
+        # 先ずは背景を一番下に敷きます
         bg = Image(
             source=bg_path,         # 探してきた画像ファイル
             allow_stretch=True,     # 画像を引き伸ばすことを許可
@@ -51,22 +51,22 @@ class BackgroundWithClouds(Widget):
         )
         self.add_widget(bg)
         
-        #雲をいくつか配置する
-        #size_hint を None にしてピクセルサイズを指定する
-        cloud_positions=[
+        # 雲をいくつか配置する
+        # size_hint を None にして、ピクセルサイズを直接指定する。
+        cloud_positions = [
             (80, 360),
             (420, 420),
             (620, 360),
         ]
         for x, y in cloud_positions:
             cloud = Image(
-                source=cloud_path,         
-                size=(250, 96), 
-                pos=(x, y),              
-                size_hint=(None,None),
-        )
-        self.add_widget(cloud)
-
+                source=cloud_path,
+                size=(250, 96),
+                pos=(x, y),
+                size_hint=(None, None),
+            )
+            self.add_widget(cloud)
+        
 
 #----------------------------------------------
 # アプリ本体
